@@ -1,0 +1,6 @@
+eigenfluid-navier
+  C++17 / Vulkan research: continuous 3D incompressible Navier-Stokes using
+  divergence-free Laplacian eigenfunctions and sparse modal interactions.
+  Goal: realistic deforming liquids at 60 FPS on baseline Apple M1 hardware.
+  papers/       references and full-text links
+  research.md   method, limitations and validation plan
