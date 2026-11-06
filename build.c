@@ -7,7 +7,7 @@ static void dependencies(void)
     const char* paths[]={
         "third-party/vulkan-engine/build.c",
         "third-party/vulkan-systems/gpu/build.c",
-        "third-party/Vulkan-Headers/registry/vk.xml"
+        "third-party/vulkan-headers/registry/vk.xml"
     };
     for(unsigned i=0;i<sizeof(paths)/sizeof(paths[0]);++i)
     {
@@ -25,7 +25,7 @@ static void includes(C_Target* target)
     c_include(target,"third-party/vulkan-engine");
     c_include(target,"third-party/vulkan-systems/gpu");
     c_include(target,"third-party/vulkan-systems/render");
-    c_include(target,"third-party/Vulkan-Headers/include");
+    c_include(target,"third-party/vulkan-headers/include");
     c_include(target,"build/generated");
 }
 
@@ -36,11 +36,11 @@ void build(C_Build* b)
     C_Target* engine=c_static_library(b,"VulkanEngine");
     c_sources(engine,"third-party/vulkan-engine/vk/*/*.cpp");
     c_generate(engine,"build/generated/generated.cpp",
-        "third-party/Vulkan-Headers/registry/vk.xml",
+        "third-party/vulkan-headers/registry/vk.xml",
         "python3 third-party/vulkan-engine/vk/tools/generate.py "
-        "third-party/Vulkan-Headers/registry/vk.xml "
+        "third-party/vulkan-headers/registry/vk.xml "
         "build/generated/generated.hpp build/generated/generated.cpp "
-        "--headers third-party/Vulkan-Headers/include");
+        "--headers third-party/vulkan-headers/include");
     includes(engine);
 
     C_Target* gpu=c_static_library(b,"VulkanGPU");
@@ -54,7 +54,7 @@ void build(C_Build* b)
     c_link_target(render,engine);
 
     C_Target* app=c_executable(b,"eigenfluid-navier");
-    c_sources(app,"main.cpp");
+    c_sources(app,"sources/main.cpp");
     includes(app);
     c_link_target(app,gpu);
     c_link_target(app,render);
